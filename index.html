@@ -580,6 +580,47 @@ body{font-family:'Nunito',sans-serif;background:#1A0202;overflow:hidden;height:1
 }
 @keyframes letterSideDrift{0%{transform:translateY(0)}100%{transform:translateY(-10px)}}
 
+/* ══ FLOWER INTRO ══ */
+#s-flower{
+  background:radial-gradient(ellipse at 50% 45%,#7A0C06 0%,#300204 55%,#080101 100%);
+  overflow:hidden;z-index:20;
+}
+#fl-stage{position:absolute;inset:0;pointer-events:none}
+#fl-center{
+  position:absolute;left:50%;top:50%;
+  font-size:clamp(72px,12vw,110px);
+  opacity:0;will-change:transform,opacity;
+  filter:drop-shadow(0 0 36px rgba(255,160,100,.65));
+  transform:translate(-50%,-50%) scale(0) rotate(-25deg);
+}
+.fp{
+  position:absolute;will-change:transform,opacity;pointer-events:none;
+  filter:drop-shadow(0 0 7px rgba(255,140,90,.45));
+}
+@keyframes flCenterIn{
+  0%  {opacity:0;transform:translate(-50%,-50%) scale(0)    rotate(-25deg)}
+  65% {opacity:1;transform:translate(-50%,-50%) scale(1.2)  rotate(5deg)}
+  82% {          transform:translate(-50%,-50%) scale(.94)  rotate(-2deg)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1)    rotate(0deg)}
+}
+@keyframes flCenterOut{
+  0%  {opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(14deg)}
+}
+@keyframes fpBloom{
+  0%  {opacity:0;transform:translate(-50%,-50%) scale(.05) rotate(0)}
+  60% {opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(var(--r))}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1)   rotate(var(--r))}
+}
+@keyframes fpSpin{
+  from{transform:translate(-50%,-50%) scale(1) rotate(var(--r))}
+  to  {transform:translate(-50%,-50%) scale(1) rotate(calc(var(--r) + 360deg))}
+}
+@keyframes fpFall{
+  0%  {opacity:1;transform:translate(calc(-50% + 0px),-50%) scale(1)   rotate(var(--r))}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),-50%) scale(.55) translateY(110vh) rotate(calc(var(--r)+60deg))}
+}
+
 @media(max-width:700px){
   .letter-paper-wrap{width:min(600px,96vw)}
   .letter-paper{padding:22px 20px;transform:none}
@@ -756,7 +797,15 @@ body{font-family:'Nunito',sans-serif;background:#1A0202;overflow:hidden;height:1
   <div id="lb-cap" onclick="event.stopPropagation()"></div>
 </div>
 
+<!-- ═══════ S0: FLOWER INTRO ═══════ -->
+<div class="screen active" id="s-flower">
+  <div id="fl-stage">
+    <div id="fl-center">🌸</div>
+  </div>
+</div>
+
 <!-- ═══════════ S1: PASSWORD ═══════════ -->
+<div class="screen" id="s-pass">
 <div class="screen active" id="s-pass">
   <div class="pass-wrap">
     <div style="position:relative;display:inline-block">
@@ -1227,11 +1276,11 @@ const PASS='1607';
    Edit paths here — one place controls everything
 ════════════════════════════════════ */
 const IMAGES = {
-  password:  'pic12.jpg',   // Password screen polaroid
+  password:  'pic37.jpg',   // Password screen polaroid
   reveal:    'pic31.jpg',   // Photo reveal ejected polaroid
 
   soulmate: [                       // Soulmate scrapbook (3 polaroids)
-    'pic3.jpg',
+    'pic38.jpg',
     'pic22.jpg',
     'pic19.jpg',
   ],
@@ -1256,7 +1305,7 @@ const IMAGES = {
     {src:'pic10.jpg', cap:'GOATED Nibbi Couples 😼'},
     {src:'pic11.jpg', cap:'Bakchodi aside — texts hit different.'},
     {src:'pic13.jpg', cap:'Missing our 26th Jan ka Trio🫶🏻🥹'},
-    {src:'pic15.jpg', cap:'Nice smile finally 😑'},
+    {src:'pic35.jpg', cap:'AUNTYYYYYYYY 😍😍😍'},
     {src:'pic16.jpg', cap:'Bewdiii Aisha pt.2'},
     {src:'pic17.jpg', cap:'No need for caption 😭'},
     {src:'pic19.jpg', cap:'Only good pic of apna'},
@@ -1265,7 +1314,7 @@ const IMAGES = {
     {src:'pic22.jpg', cap:'missing garba nights 🫶🏻🥹'},
     {src:'pic23.jpg', cap:'kya reason tha iss selfie ka???'},
     {src:'pic25.jpg', cap:'ek din fs hojayegi dw 😎'},
-    {src:'pic26.jpg', cap:'Same to u 🖕'},
+    {src:'pic39.jpg', cap:'Mai khudki malkin hu '},
     {src:'pic27.jpg', cap:'YESSS SRLY??🤣'},
     {src:'pic28.jpg', cap:'UMM NO????🤢'},
     {src:'pic30.jpg', cap:'PAPA KI LADLI PARI'},
@@ -1408,9 +1457,7 @@ May every dream you're scared to say out loud still find its way to you 💛
 
 And honestly? I hope life gives you every single thing you've quietly wished for, because if there's one thing I've learned about you, it's that no matter what gets thrown at you, you keep going.
 
-The last 6 months haven't exactly been easy on you. I've seen the stress, the frustration, the random breakdowns over things people think are small but actually aren't. I've seen how you've handled situations at home, how you've dealt with things with your mom and dad, and how you've carried yourself even when it would've been easier to just give up.
-
-And that's probably what makes me most proud of you.
+The last 6 months haven't exactly been easy on you. I've seen the stress, the frustration, the random breakdowns over things people think are small but actually aren't. I've seen how you've handled situations at home, how you've dealt with things with your mom and dad, and how you've carried yourself even when it would've been easier to just give up.And that's probably what makes me most proud of you.
 
 Not your achievements.
 Not your marks.
@@ -1419,38 +1466,31 @@ Not your wins.
 You.
 
 The person who somehow keeps getting back up. The person who cries over choti choti baatein but still refuses to quit. The person who keeps fighting even when nobody sees the battle. And for whatever it's worth, I need you to know that I've always been proud of you. Not sometimes. Not only when things are going well.
-
 ALWAYS.
 
-Whether you're winning, struggling, confused, angry, crying, overthinking, being annoying, or being the biggest bakchod on the planet.
-
+Whether you're winning, struggling, confused, angry, crying, overthinking, being annoying, or being the second biggest bakchod on the planet (u can never beat me in bakchodi but ok).
 ALWAYS.
 
 Life's gonna try you, slow you down, confuse you, and sometimes make you question yourself. But remember, you're built different.
-
 Stay smiling. Stay bakchod. Stay exactly the way you are.
 
 And before you start acting all emotional after reading this, remember one thing: You have a nalla bhai. Haan, Germany mein baitha hua hai. Haan, kabhi kabhi replies bhi nahi deta. Haan, reels ignore karne wali best friend ko tolerate bhi karta hai. But no matter where I am, I'm always in your corner.
-
 ALWAYS.
 
 Whether you need advice, someone to listen to your RR, someone to tell you you're overthinking, or someone to remind you that you're actually stronger than you think.
-
-Stay Goated 🐐
-
-Trust your path.
-
-Trust your timing.
+Stay Goated 🐐 Trust your path. Trust your timing.
 
 But at the same time, always listen to your elders.
-
 (Me. Obviously. Mere instincts goated hote hain.)
 
-And honestly, I don't think I've appreciated you enough.
+People say best friends never last, but I don't think they've ever met someone like you.
 
-So thank you.
+A lot of people have walked in and out of my life, but you've done something different. You've not only left a footprint in my heart, you've left like 10k steps (which is fair enough, daily step count complete karna bhi zaroori hai 😭). But jokes aside...No matter where life takes us both, together or apart (hopefully not), I'll always be thankful to God for making our paths cross. Out of all the random chances, coincidences, and butterfly effects that had to happen for us to become friends, somehow they all did lineup properly.
 
-Ik I have never appreciated you for being my homegirl, my reels-ignoring friend, my RR specialist, my professional overthinker. And most importantly one of the strongest person I know, but nothing beats crying on choti choti baate but NEVER GIVING UP wali bkl (naturally learning from bade bhaiya himself 🐐).
+And for that, I'll always be grateful.
+Because at the end of the day, no matter what happens, I get to call you my HOMEGIRL 💛.
+
+Ik I have never appreciated you for being my homegirl, my reels-ignoring friend, my RR specialist, my professional overthinker. And most importantly one of the strongest person I know, but nothing beats crying on choti choti baate but NEVER GIVING UP wali bkl (naturally learning from bade bhaiya himself 🐐). So thank you.
 
 Aur ha, I know this isn't some crazy expensive gift, but last year after seeing Bhoomi's birthday gift last year, mere andar ka mard ego hurt ho gaya tha. So congratulations. You are now a victim of Venky's bakchodi.
 
@@ -1515,12 +1555,12 @@ const LC_PHRASES=[
 ════════════════════════════════════ */
 let currentScreen='s-pass';
 const backMap={
-  's-hero':'s-pass','s-gifts':'s-hero','s-camera':'s-gifts',
+  's-pass':'s-flower','s-hero':'s-pass','s-camera':'s-gifts',
   's-reveal':'s-camera','s-soulmate':'s-reveal','s-choice':'s-soulmate',
   's-envelope':'s-choice','screen-gpt-letter':'s-choice','screen-venky-letter':'s-choice',
   's-letter':'s-envelope','s-wish':'s-gifts','s-memory':'s-gifts','s-langs':'s-choice'
 };
-const noBackScreens=new Set(['s-pass','s-hero','s-gifts']);
+const noBackScreens=new Set(['s-flower','s-pass','s-hero','s-gifts']);
 const scrollScreens=new Set(['s-soulmate','s-letter','screen-gpt-letter','screen-venky-letter']);
 
 function showScreen(id){
@@ -1549,6 +1589,7 @@ function goBack(){
 }
 
 function onEnter(id){
+  if(id==='s-flower'){/* auto-started below */}
   if(id==='s-hero'){fireConfetti();tryMusic();addHeroSparkles();}
   if(id==='s-camera'){buildCamSparks();}
   if(id==='s-reveal'){doReveal();}
@@ -1559,6 +1600,82 @@ function onEnter(id){
   if(id==='s-wish'){resetWish();}
   if(id==='screen-gpt-letter'){startGptLetter();}
   if(id==='screen-venky-letter'){/* started by btn click */}
+}
+
+/* ════════════════════════════════════
+   FLOWER INTRO
+════════════════════════════════════ */
+function runFlowerIntro(){
+  const W=innerWidth, H=innerHeight;
+  const stage=document.getElementById('fl-stage');
+  const centerEl=document.getElementById('fl-center');
+  const EMOJIS=['🌸','🌺','🌹','🪷','🌷','💮','🌼','🏵️'];
+  const petals=[];
+
+  /* Phase 1 — center blooms in */
+  centerEl.style.animation='flCenterIn 1.2s cubic-bezier(.22,1,.36,1) forwards';
+
+  /* Phase 2 — spiral rings (800ms – 5500ms) */
+  const maxR=Math.min(W,H)*0.48;
+  const rings=[
+    {n:6,  rp:.10, sz:28, t0:800},
+    {n:9,  rp:.18, sz:24, t0:1700},
+    {n:13, rp:.28, sz:20, t0:2600},
+    {n:17, rp:.39, sz:17, t0:3400},
+    {n:22, rp:.50, sz:14, t0:4200},
+    {n:26, rp:.62, sz:12, t0:5000},
+  ];
+
+  rings.forEach((ring,ri)=>{
+    for(let i=0;i<ring.n;i++){
+      const angle=(Math.PI*2/ring.n)*i + ri*0.28 + (Math.random()-.5)*0.3;
+      const rad=ring.rp*maxR*(0.88+Math.random()*.24);
+      const px=W/2 + Math.cos(angle)*rad;
+      const py=H/2 + Math.sin(angle)*rad;
+      const rot=(Math.random()-.5)*55;
+      const delay=ring.t0 + i*(90+Math.random()*55);
+      const emoji=EMOJIS[(ri*4+i)%EMOJIS.length];
+      setTimeout(()=>{
+        const el=document.createElement('div');
+        el.className='fp';
+        el.style.cssText=`left:${px}px;top:${py}px;font-size:${ring.sz}px;opacity:0;`;
+        el.style.setProperty('--r',rot+'deg');
+        el.style.setProperty('--dx',((Math.random()-.5)*160)+'px');
+        el.textContent=emoji;
+        el.style.animation=`fpBloom ${.5+Math.random()*.3}s cubic-bezier(.22,1,.36,1) forwards`;
+        stage.appendChild(el);
+        petals.push(el);
+      },delay);
+    }
+  });
+
+  /* Phase 3 — gentle swirl (5700ms) */
+  setTimeout(()=>{
+    petals.forEach(el=>{
+      const dur=2.5+Math.random()*3;
+      el.style.animation=`fpSpin ${dur}s linear ${Math.random()*.5}s infinite`;
+    });
+  },5700);
+
+  /* Phase 4 — fall & fade (7200ms) */
+  setTimeout(()=>{
+    petals.forEach(el=>{
+      const d=Math.random()*1.1;
+      el.style.animation=`fpFall ${1.1+Math.random()*.8}s ease-in ${d}s forwards`;
+    });
+    centerEl.style.animation='flCenterOut 1.3s ease-in .2s forwards';
+  },7200);
+
+  /* Phase 5 — reveal password (8900ms) */
+  setTimeout(()=>{
+    console.log('FLOWER COMPLETE');
+    console.log('GOING TO PASSWORD SCREEN');
+    const passScreen = document.getElementById('s-pass');
+    console.log('Password screen exists:', !!passScreen);
+    showScreen('s-pass');
+    console.log('PASSWORD SCREEN SHOWN');
+    setTimeout(()=>{ stage.innerHTML=''; },800);
+  },8900);
 }
 
 /* ════════════════════════════════════
@@ -2071,6 +2188,10 @@ function drawC(){
   if(pieces.length>0)rafC=requestAnimationFrame(drawC);
   else{ctx.clearRect(0,0,cvs.width,cvs.height);rafC=null;}
 }
+
+/* ── START FLOWER ── */
+console.log('FLOWER START');
+runFlowerIntro();
 </script>
 </body>
 </html>
